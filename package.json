@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "build": "babel index.js — out-file index-compiled.js",
     "start": "nodemon — exec babel-node .",
     "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
