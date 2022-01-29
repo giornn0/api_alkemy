@@ -7,7 +7,7 @@ import db from "../models/index.js";
 
 if (!process.env.PRODUCTION) dotenv.config();
 export const login = async ({ email, password }) => {
-  const user = await db.users.findByPk(email);
+  const user = await db.users.findOne({where:email});
   if (!user)
     throw Error(
       JSON.stringify({ message: "Usuario inexistente!", statusCode: 401 })
