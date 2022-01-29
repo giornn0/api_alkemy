@@ -4,12 +4,12 @@ import routes from "./routes/router.js"
 import {errorHandler} from "./utils/error.handler.js"
 import db from './models/index.js'
 
-const port = process.env.PORT | 3000
+const port = process.env.PORT || 3000
 const app = express()
 
 app.use(bodyParser.json())
 app.use(routes)
 app.use(errorHandler)
-app.listen(port,()=>{
+app.listen(port,"0.0.0.0",()=>{
   console.log(`Server listening on port ${port}`)
 })
