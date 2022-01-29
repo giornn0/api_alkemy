@@ -5,7 +5,7 @@ import db from "../models/index.js";
 import {validate} from "./validateFn.js"
 import { body } from 'express-validator';
 
-dotenv.config()
+if(dotenv)dotenv.config()
 export const authenticated = async (req,res,next)=>{
   try {
     const token = req.headers.authorization.replace("Bearer ","")
