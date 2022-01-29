@@ -52,10 +52,4 @@ CREATE TABLE Users (
     updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
     CONSTRAINT email_unique UNIQUE (email)
 );
-ALTER TABLE Users ADD CONSTRAINT email_unique UNIQUE (email);
 INSERT INTO Generos (nombre) VALUES("Acción"),("Aventuras"),("Ciencia Ficción"),("Comedia"),("No-Ficción/Documental"),("Drama"),("Fantasía"),("Musical"),("Suspense"),("Terror"),("Cine Mudo"),("Cinema sonoro"),("Cine 2D"),("Películas 3D"),("Animación"),("Religiosas"),("Futuristas"),("Policíacas"),("Crimen"),("Bélicas"),("Históricas"),("Deportivas"),("Western");
-
-SELECT * FROM Peliculas p ;
-DELETE FROM Users ;
-
-DROP SCHEMA testing_alkemy ;

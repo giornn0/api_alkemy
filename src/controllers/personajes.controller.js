@@ -2,9 +2,9 @@ import {Op} from "sequelize"
 import db from "../models/index.js";
 
 export const create = async(body,file)=>{
-  const {titulo,fecha_creacion,calificacion,peliculas} = body
+  const {nombre,edad,peso,historia,peliculas} = body
   const personaje = await db.personajes.create({
-    titulo,fecha_creacion,calificacion,imagen:file.buffer,mimetype:file.mimetype
+    nombre,edad,peso,historia,imagen:file.buffer,mymetype:file.mimetype
   })
   peliculas.forEach(pelicula=>{
     personaje.addPelicula(pelicula)
@@ -12,9 +12,11 @@ export const create = async(body,file)=>{
   return personaje
 }
 export const update = async(body,file,id)=>{
-  const {titulo,fecha_creacion,calificacion,peliculas} = body
-  const personaje = await db.personajes.create({
-    titulo,fecha_creacion,calificacion,imagen:file.buffer,mimetype:file.mimetype
+  const {nombre,edad,peso,historia,peliculas} = body
+  const personaje = await db.personajes.update({
+    nombre,edad,peso,historia,imagen:file.buffer,mymetype:file.mimetype
+  },{
+    where: {id}
   })
   peliculas.forEach(pelicula=>{
     personaje.addPelicula(pelicula)
@@ -23,10 +25,12 @@ export const update = async(body,file,id)=>{
 } 
 
 export const getAll = async ({name,movies,age})=>{
-  const nombre = name?{[Op.like]:`%${name}%`}:null;
-  const edad = age | null;
+  let where = {}
+  if(name)where.nombre = {[Op.like]:`%${name}%`};
+  if(age)where.edad = age;
+  if(movies)where['$peliculas.id$'] = movies;
   const personajes =  await db.personajes.findAll({
-    where:{nombre,edad},
+    where,
     include: [
       {
         model: db.peliculas,
@@ -38,7 +42,6 @@ export const getAll = async ({name,movies,age})=>{
       },
     ]
   });
-  if(movies) personajes = personajes.filter(personaje=>personaje.peliculas.include(pelicula));
   return personajes
 }
 export const erase= async (id)=>{

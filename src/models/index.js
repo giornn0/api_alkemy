@@ -5,7 +5,7 @@ import {pelicula} from "./pelicula.model.js"
 import {genero} from "./genero.model.js"
 import {user} from "./user.model.js"
 import dotenv from "dotenv";
-if(process.env.PRODUCTION)dotenv.config()
+if(!process.env.PRODUCTION)dotenv.config()
 
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 const initial = {};

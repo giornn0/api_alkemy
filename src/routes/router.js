@@ -5,6 +5,7 @@ import peliculasRouter from "./peliculas.routes.js"
 import personajesRouter from "./personajes.routes.js"
 import {login,register} from "../controllers/user.controller.js"
 import {authenticated, validData} from "../middlewares/authUser.js"
+
 const router = express.Router()
 
 router.post("/auth/login",validData, async(req, res, next)=>{
@@ -24,7 +25,7 @@ router.post("/auth/register",validData,async(req, res, next)=>{
   }
 })
 
-
+router.use(authenticated)
 router.use("/movies",peliculasRouter)
 router.use("/characters",personajesRouter)
 

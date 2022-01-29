@@ -4,17 +4,17 @@ import {create,update,erase,getAll} from "../controllers/peliculas.controller.js
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const peliculasRouter = express.Router();
+const router = express.Router();
 
-peliculasRouter.get(async (req, res, next) => {
+router.get("/",async (req, res, next) => {
   try {
-    const result = await getAll(req.queryParams)
+    const result = await getAll(req.query)
     res.status(200).json(result)
   } catch (error) {
     next(error);
   }
 });
-peliculasRouter.post("/", upload.single("imagen"), async (req, res, next) => {
+router.post("/", upload.single("imagen"), async (req, res, next) => {
   try {
     const result = await create(req.body,req.file)
     res.status(201).json(result)
@@ -22,7 +22,7 @@ peliculasRouter.post("/", upload.single("imagen"), async (req, res, next) => {
     next(error);
   }
 });
-peliculasRouter.put("/:id", upload.single("imagen"), async (req, res, next) => {
+router.put("/:id", upload.single("imagen"), async (req, res, next) => {
   try {
     const result = await update(req.body,req.file,req.params.id)
     res.status(202).json(result)
@@ -30,7 +30,7 @@ peliculasRouter.put("/:id", upload.single("imagen"), async (req, res, next) => {
     next(error);
   }
 });
-peliculasRouter.delete("/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const result = await erase(req.params.id)
     res.status(200).json({message:"Pelicula eliminada con éxito!!"})
@@ -38,4 +38,4 @@ peliculasRouter.delete("/:id", async (req, res, next) => {
     next(error);
   }
 });
-export default peliculasRouter;
+export default router;

@@ -24,6 +24,10 @@ export const pelicula = (sequelize) =>{
       type: DataTypes.BLOB,
       allowNull: false
     },
+    mymetype: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Pelicula'
