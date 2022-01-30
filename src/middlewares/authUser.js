@@ -6,6 +6,7 @@ import {validate} from "./validateFn.js"
 import { body } from 'express-validator';
 
 if(!process.env.PRODUCTION)dotenv.config()
+
 export const authenticated = async (req,res,next)=>{
   try {
     const token = req.headers.authorization?.replace("Bearer ","")
@@ -17,7 +18,7 @@ export const authenticated = async (req,res,next)=>{
         }
     })
     if(!user) return res.status(401).json({message:"Error intentando ingresar!"})
-    const {id,tipo} = user
+    const {id} = user
     req.user = {
       id,
     }

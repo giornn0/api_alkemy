@@ -44,7 +44,7 @@ const genToken = async ({ id, email }) => {
   let token = await jwt.sign(
     {
       id,
-      email,
+      email, 
     },
     process.env.JWT_KEY,
     { expiresIn: "4h" }
